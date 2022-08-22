@@ -319,7 +319,7 @@ class Resolv
   class ResolvError < StandardError
   end
 
-  class ResolvTimeout < TimeoutError
+  class ResolvTimeout < Timeout::Error
   end
 
   # Resolves names and addresses using the hosts file, "/etc/hosts" or
