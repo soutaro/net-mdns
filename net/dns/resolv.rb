@@ -784,9 +784,6 @@ class Resolv
           f.each {|line|
             line.sub!(/[#;].*/, '')
             keyword, *args = line.split(/\s+/)
-            args.each { |arg|
-              arg.untaint
-            }
             next unless keyword
             case keyword
             when 'nameserver'
