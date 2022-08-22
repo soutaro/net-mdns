@@ -1483,8 +1483,8 @@ class Resolv
       def ==(other)
         return self.class == other.class &&
           self.instance_variables == other.instance_variables &&
-          self.instance_variables.collect {|name| self.instance_eval name} ==
-            other.instance_variables.collect {|name| other.instance_eval name}
+          self.instance_variables.collect {|name| self.instance_eval name.to_s } ==
+            other.instance_variables.collect {|name| other.instance_eval name.to_s }
       end
 
       def eql?(other)
