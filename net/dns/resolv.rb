@@ -1373,16 +1373,16 @@ class Resolv
 
         def get_unpack(template)
           len = 0
-          template.each_byte {|byte|
-            case byte
-            when ?c, ?C
+          template.each_char {|char|
+            case char
+            when "c", "C"
               len += 1
-            when ?n
+            when "n"
               len += 2
-            when ?N
+            when "N"
               len += 4
             else
-              raise StandardError.new("unsupported template: '#{byte.chr}' in '#{template}'")
+              raise StandardError.new("unsupported template: '#{char}' in '#{template}'")
             end
           }
           raise DecodeError.new("limit exceeded") if @limit < @index + len
@@ -1392,7 +1392,7 @@ class Resolv
         end
 
         def get_string
-          len = @data[@index]
+          len = @data[@index].ord
           raise DecodeError.new("limit exceeded") if @limit < @index + 1 + len
           d = @data[@index + 1, len]
           @index += 1 + len
@@ -1415,7 +1415,7 @@ class Resolv
           limit = @index if !limit || @index < limit
           d = []
           while true
-            case @data[@index]
+            case @data[@index].ord
             when 0
               @index += 1
               return d
