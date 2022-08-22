@@ -1323,7 +1323,7 @@ class Resolv
             o.add_question(name, typeclass, unicast)
           }
           (1..ancount).each {
-            name, ttl, data, cacheflush = msg.get_rr
+            name, ttl, data, _cacheflush = msg.get_rr
             o.add_answer(name, ttl, data)
           }
           (1..nscount).each {

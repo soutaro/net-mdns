@@ -16,7 +16,7 @@ rrmap = {
   nil   => Resolv::DNS::Resource::IN::ANY
 }
 
-rtypes = rrmap.keys.join ', '
+_rtypes = rrmap.keys.join ', '
 
 HELP =<<EOF
 Usage: mdns [options] name [service-type]
@@ -36,7 +36,7 @@ Default is 'any'.
 Examples:
 EOF
 
-opt_debug = nil
+_opt_debug = nil
 opt_recur = nil
 opt_addr  = nil
 opt_type  = Resolv::DNS::Resource::IN::ANY
@@ -52,7 +52,7 @@ opts = GetoptLong.new(
 opts.each do |opt, arg|
   case opt
     when "--help"  then puts HELP; exit 0
-    when "--debug" then opt_debug = true
+    when "--debug" then _opt_debug = true
     when "--recur" then opt_recur = true
     when "--addr"  then opt_addr = true
     when "--type"  then opt_type = rrmap[arg]
