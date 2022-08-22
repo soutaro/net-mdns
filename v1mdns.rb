@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby18 -w
+#!/usr/bin/env ruby -w
 # Author: Sam Roberts <sroberts@uniserve.com>
 # Licence: this file is placed in the public domain
 
