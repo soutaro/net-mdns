@@ -404,6 +404,8 @@ class Resolv
   end
 
   class DNS
+    include Timeout
+
     # STD0013 (RFC 1035, etc.)
     # ftp://ftp.isi.edu/in-notes/iana/assignments/dns-parameters
 
