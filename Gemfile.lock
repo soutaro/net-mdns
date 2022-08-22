@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    net-mdns (0.4)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  arm64-darwin-21
+
+DEPENDENCIES
+  net-mdns!
+
+BUNDLED WITH
+   2.3.15
