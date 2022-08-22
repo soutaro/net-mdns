@@ -571,6 +571,12 @@ class Resolv
     end
 
     class Requester # :nodoc:
+      @mutex ||= Thread::Mutex.new()
+
+      def self.synchronize(&block)
+        @mutex.synchronize(&block)
+      end
+
       def initialize
         @senders = {}
       end
@@ -640,7 +646,7 @@ class Resolv
 
         def sender(msg, data, queue, host, port=Port)
           service = [host, port]
-          id = Thread.exclusive {
+          id = Requester.synchronize {
             @id[service] = (@id[service] + 1) & 0xffff
           }
           request = msg.encode
@@ -694,7 +700,7 @@ class Resolv
           unless host == @host && port == @port
             raise RequestError.new("host/port don't match: #{host}:#{port}")
           end
-          id = Thread.exclusive { @id = (@id + 1) & 0xffff }
+          id = Requester.synchronize { @id = (@id + 1) & 0xffff }
           request = msg.encode
           request[0,2] = [id].pack('n')
           return @senders[id] = Sender.new(request, data, @sock, queue)
@@ -741,7 +747,7 @@ class Resolv
           unless host == @host && port == @port
             raise RequestError.new("host/port don't match: #{host}:#{port}")
           end
-          id = Thread.exclusive { @id = (@id + 1) & 0xffff }
+          id = Requester.synchronize { @id = (@id + 1) & 0xffff }
           request = msg.encode
           request[0,2] = [request.length, id].pack('nn')
           return @senders[id] = Sender.new(request, data, @sock, queue)
