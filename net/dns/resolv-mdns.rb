@@ -71,6 +71,7 @@ class Resolv
   # (Resolv::DNS::Resource::IN::TXT) record associated with the service name.
   # The format of the text record is service-specific.
   class MDNS
+    include Timeout
 
     # How many seconds to wait before assuming all responses have been seen.
     DefaultTimeout = 2
@@ -207,7 +208,7 @@ class Resolv
               end
             end
           end
-        rescue TimeoutError
+        rescue Timeout::Error
         end
       ensure
         query.stop
